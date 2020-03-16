@@ -1,5 +1,5 @@
 {
-  "name": "alt-space-web",
+  "name": "band-connect",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +26,8 @@
     "yup": "^0.28.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test"
@@ -48,6 +50,11 @@
   "devDependencies": {
     "@storybook/addon-info": "^5.2.8",
     "@storybook/react": "^5.2.8",
+    "gh-pages": "^2.2.0",
     "react-docgen-typescript-loader": "^3.6.0"
-  }
+  },
+  "name": "band-connect",
+  "homepage": "https://5t33.github.io/band-connect",
+  "version": "0.1.0",
+  "private": true
 }

@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/band-connect/static/css/main.dfca195d.chunk.css",
+    "main.js": "/band-connect/static/js/main.3d128d90.chunk.js",
+    "main.js.map": "/band-connect/static/js/main.3d128d90.chunk.js.map",
+    "runtime-main.js": "/band-connect/static/js/runtime-main.aee03782.js",
+    "runtime-main.js.map": "/band-connect/static/js/runtime-main.aee03782.js.map",
+    "static/js/2.a91fe164.chunk.js": "/band-connect/static/js/2.a91fe164.chunk.js",
+    "static/js/2.a91fe164.chunk.js.map": "/band-connect/static/js/2.a91fe164.chunk.js.map",
+    "index.html": "/band-connect/index.html",
+    "precache-manifest.33d344eea525ac64c36c9bc580bbdb1a.js": "/band-connect/precache-manifest.33d344eea525ac64c36c9bc580bbdb1a.js",
+    "service-worker.js": "/band-connect/service-worker.js",
+    "static/css/main.dfca195d.chunk.css.map": "/band-connect/static/css/main.dfca195d.chunk.css.map",
+    "static/js/2.a91fe164.chunk.js.LICENSE.txt": "/band-connect/static/js/2.a91fe164.chunk.js.LICENSE.txt",
+    "static/media/alexander-popov-hTv8aaPziOQ-unsplash.jpg": "/band-connect/static/media/alexander-popov-hTv8aaPziOQ-unsplash.30356eb3.jpg",
+    "static/media/austin-neill-1t0yY9lSpyE-unsplash.jpg": "/band-connect/static/media/austin-neill-1t0yY9lSpyE-unsplash.9f7ca609.jpg",
+    "static/media/down-arrow.svg": "/band-connect/static/media/down-arrow.5e4afb31.svg",
+    "static/media/left-arrow-alt-solid-orange.svg": "/band-connect/static/media/left-arrow-alt-solid-orange.1c10a373.svg",
+    "static/media/right-arrow-alt-solid-orange.svg": "/band-connect/static/media/right-arrow-alt-solid-orange.957294c8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aee03782.js",
+    "static/js/2.a91fe164.chunk.js",
+    "static/css/main.dfca195d.chunk.css",
+    "static/js/main.3d128d90.chunk.js"
+  ]
+}
