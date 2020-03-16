@@ -12,7 +12,7 @@ import { composeFormErrors } from 'Components/Forms/formHelpers';
 
 const formSchema = yup.object().shape({
   name: yup.string()
-            .required("Name i a required field"),
+            .required("Name is a required field"),
   email: yup.string().required()
                       .email("Email is a required field"),
   zipcode: yup.string().required("Zipcode is a required field")

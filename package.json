@@ -27,7 +27,6 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test"
@@ -54,7 +53,7 @@
     "react-docgen-typescript-loader": "^3.6.0"
   },
   "name": "band-connect",
-  "homepage": "https://5t33.github.io/band-connect",
+  "homepage": "https://5t33.github.io/react-multi-user-types-landing",
   "version": "0.1.0",
   "private": true
 }

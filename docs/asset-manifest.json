@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/band-connect/static/css/main.dfca195d.chunk.css",
-    "main.js": "/band-connect/static/js/main.3d128d90.chunk.js",
-    "main.js.map": "/band-connect/static/js/main.3d128d90.chunk.js.map",
-    "runtime-main.js": "/band-connect/static/js/runtime-main.aee03782.js",
-    "runtime-main.js.map": "/band-connect/static/js/runtime-main.aee03782.js.map",
-    "static/js/2.a91fe164.chunk.js": "/band-connect/static/js/2.a91fe164.chunk.js",
-    "static/js/2.a91fe164.chunk.js.map": "/band-connect/static/js/2.a91fe164.chunk.js.map",
-    "index.html": "/band-connect/index.html",
-    "precache-manifest.33d344eea525ac64c36c9bc580bbdb1a.js": "/band-connect/precache-manifest.33d344eea525ac64c36c9bc580bbdb1a.js",
-    "service-worker.js": "/band-connect/service-worker.js",
-    "static/css/main.dfca195d.chunk.css.map": "/band-connect/static/css/main.dfca195d.chunk.css.map",
-    "static/js/2.a91fe164.chunk.js.LICENSE.txt": "/band-connect/static/js/2.a91fe164.chunk.js.LICENSE.txt",
-    "static/media/alexander-popov-hTv8aaPziOQ-unsplash.jpg": "/band-connect/static/media/alexander-popov-hTv8aaPziOQ-unsplash.30356eb3.jpg",
-    "static/media/austin-neill-1t0yY9lSpyE-unsplash.jpg": "/band-connect/static/media/austin-neill-1t0yY9lSpyE-unsplash.9f7ca609.jpg",
-    "static/media/down-arrow.svg": "/band-connect/static/media/down-arrow.5e4afb31.svg",
-    "static/media/left-arrow-alt-solid-orange.svg": "/band-connect/static/media/left-arrow-alt-solid-orange.1c10a373.svg",
-    "static/media/right-arrow-alt-solid-orange.svg": "/band-connect/static/media/right-arrow-alt-solid-orange.957294c8.svg"
+    "main.css": "/react-multi-user-types-landing/static/css/main.dfca195d.chunk.css",
+    "main.js": "/react-multi-user-types-landing/static/js/main.cfd39e0e.chunk.js",
+    "main.js.map": "/react-multi-user-types-landing/static/js/main.cfd39e0e.chunk.js.map",
+    "runtime-main.js": "/react-multi-user-types-landing/static/js/runtime-main.678f52ce.js",
+    "runtime-main.js.map": "/react-multi-user-types-landing/static/js/runtime-main.678f52ce.js.map",
+    "static/js/2.a91fe164.chunk.js": "/react-multi-user-types-landing/static/js/2.a91fe164.chunk.js",
+    "static/js/2.a91fe164.chunk.js.map": "/react-multi-user-types-landing/static/js/2.a91fe164.chunk.js.map",
+    "index.html": "/react-multi-user-types-landing/index.html",
+    "precache-manifest.8d1a1b139216980feaaf2b29bd4add06.js": "/react-multi-user-types-landing/precache-manifest.8d1a1b139216980feaaf2b29bd4add06.js",
+    "service-worker.js": "/react-multi-user-types-landing/service-worker.js",
+    "static/css/main.dfca195d.chunk.css.map": "/react-multi-user-types-landing/static/css/main.dfca195d.chunk.css.map",
+    "static/js/2.a91fe164.chunk.js.LICENSE.txt": "/react-multi-user-types-landing/static/js/2.a91fe164.chunk.js.LICENSE.txt",
+    "static/media/alexander-popov-hTv8aaPziOQ-unsplash.jpg": "/react-multi-user-types-landing/static/media/alexander-popov-hTv8aaPziOQ-unsplash.30356eb3.jpg",
+    "static/media/austin-neill-1t0yY9lSpyE-unsplash.jpg": "/react-multi-user-types-landing/static/media/austin-neill-1t0yY9lSpyE-unsplash.9f7ca609.jpg",
+    "static/media/down-arrow.svg": "/react-multi-user-types-landing/static/media/down-arrow.5e4afb31.svg",
+    "static/media/left-arrow-alt-solid-orange.svg": "/react-multi-user-types-landing/static/media/left-arrow-alt-solid-orange.1c10a373.svg",
+    "static/media/right-arrow-alt-solid-orange.svg": "/react-multi-user-types-landing/static/media/right-arrow-alt-solid-orange.957294c8.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.aee03782.js",
+    "static/js/runtime-main.678f52ce.js",
     "static/js/2.a91fe164.chunk.js",
     "static/css/main.dfca195d.chunk.css",
-    "static/js/main.3d128d90.chunk.js"
+    "static/js/main.cfd39e0e.chunk.js"
   ]
 }
