@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up('md')]: {
       visibility: 'hidden'
     },
-    // marginRight: theme.spacing(2),
   },
   HorizontalMenuContainer: {
     [theme.breakpoints.down('sm')]: {
@@ -77,11 +76,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: '#ffffff',
     '& .MuiMenuItem-root': {
       fontWeight: 'bold',
-    '&:hover': {
-      backgroundColor: '#6d6d6d',
-    },
+      '&:hover': {
+        backgroundColor: '#6d6d6d',
+      },
     }
-    // fontWeight: '800'
   },
   MenuIcon: {
     fontSize: '1.5rem',
@@ -108,14 +106,9 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   };
 
   const handleClose = (event: React.MouseEvent<EventTarget>) => {
-    console.log("inside handle close")
-    // debugger;
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
-      console.log("handle close returned pre-maturely")
       return;
     }
-    // debugger;
-    console.log("successfully set handleOpen")
     setOpen(false);
   };
 
@@ -127,21 +120,12 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   }
 
   window.addEventListener("resize", () => setOpen(false));
-  // // return focus to the button when we transitioned from !open -> open
-  // const prevOpen = React.useRef(open);
-  // React.useEffect(() => {
-  //   if (prevOpen.current === true && open === false) {
-  //     anchorRef.current!.focus();
-  //   }
-
-  //   prevOpen.current = open;
-  // }, [open]);
 
   return (
     <>
       <AppBar>
         <Toolbar className={classes.ToolBarStyles} >
-            <div className={classes.title}  onClick={()=>scrollToDiv(props.aboutRef)} >
+            <div className={classes.title}  onClick={()=>scrollToDiv(props.topRef)} >
               <Typography >
                 Band&nbsp;Connect
               </Typography>
@@ -185,7 +169,7 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={(event: React.MouseEvent<EventTarget>) => {
-                      signUpClick();
+                      scrollToDiv(props.aboutRef)
                       handleClose(event);
                     }}>About Us</MenuItem>
                     <MenuItem onClick={(event: React.MouseEvent<EventTarget>) => {
