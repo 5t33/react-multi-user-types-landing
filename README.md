@@ -11,3 +11,6 @@ This repository is an implementation of a multi-user sign up flow using React/Ty
 `npm build` -> build
 
 `npm test` -> test
+
+## TODO
+1) Fix Sign Up landscape responsive css
