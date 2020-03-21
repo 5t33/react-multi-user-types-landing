@@ -1,0 +1,7 @@
+node_modules/
+*.svg 
+*.png 
+*.jpg
+*.css
+src/serviceWorker.ts
+src/Util/DisplayFormikState.tsx

@@ -1,13 +1,16 @@
 import React from "react";
 import { AsYouType } from "libphonenumber-js/core";
-import TextField, { FieldWithLabelProps } from 'Components/Inputs/TextFieldUpperLabel';
+import TextField, {
+  FieldWithLabelProps
+} from "Components/Inputs/TextFieldUpperLabel";
+//eslint-disable-next-line @typescript-eslint/no-var-requires
 const metadata = require("libphonenumber-js/metadata.min.json");
 
-type PhoneNumberInputProps = {
-} &  FieldWithLabelProps;
+type PhoneNumberInputProps = {} & FieldWithLabelProps;
 
-const PhoneNumberInput: React.FC<PhoneNumberInputProps> = (props: PhoneNumberInputProps) => {
-
+const PhoneNumberInput: React.FC<PhoneNumberInputProps> = (
+  props: PhoneNumberInputProps
+) => {
   const handlePhoneNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -28,12 +31,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = (props: PhoneNumberInp
     }
   };
 
-  return (
-    <TextField
-      {...props}
-      onChange={handlePhoneNumberChange}
-    />
-  );
+  return <TextField {...props} onChange={handlePhoneNumberChange} />;
 };
 
 export default PhoneNumberInput;

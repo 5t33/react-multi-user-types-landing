@@ -29,7 +29,8 @@
     "predeploy": "npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "lint": "eslint --ext .ts,.tsx src/* --fix --no-error-on-unmatched-pattern"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,11 +50,13 @@
   "devDependencies": {
     "@storybook/addon-info": "^5.2.8",
     "@storybook/react": "^5.2.8",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-prettier": "^3.1.2",
     "gh-pages": "^2.2.0",
     "react-docgen-typescript-loader": "^3.6.0"
   },
-  "name": "band-connect",
-  "homepage": "https://5t33.github.io/react-multi-user-types-landing",
-  "version": "0.1.0",
-  "private": true
+  "homepage": "https://5t33.github.io/react-multi-user-types-landing"
 }
