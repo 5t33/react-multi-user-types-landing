@@ -1,5 +1,5 @@
 import React from 'react';
-import get from 'lodash/fp/get'  
+import get from 'lodash/fp/get';  
 import { Theme, Typography } from '@material-ui/core';
 import NavButton from 'Components/Buttons/NavButton';
 import { makeStyles } from '@material-ui/core/styles';
@@ -59,11 +59,12 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
 
   const isPerson = signUpState.userType === UserTypes.Artist || signUpState.userType === UserTypes.Fan;
   const isVenue = signUpState.userType === UserTypes.Venue;
+  const showInnerState = signUpState.outerStep === SignUpStepEnum.INNER_STEPS;
 
   return (
     <div className={classes.root}>
-      { signUpState.step === 0 && <IntitialSignUp/> }
-      { signUpState.step > 0 && signUpState.step !== SignUpStepEnum.CONFIRMATION_STEP &&
+
+      { showInnerState &&
         <>
           <NavButton className={classes.LocalNavButton} direction={"left"} onClick={navBack}/>
           <Typography className={classes.Title}>
@@ -77,7 +78,12 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
           }
         </>
       }
-      {signUpState.step === SignUpStepEnum.CONFIRMATION_STEP &&
+
+      { !showInnerState && signUpState.outerStep === SignUpStepEnum.INITIAL_STEP && 
+        <IntitialSignUp/> 
+      }
+      
+      {!showInnerState && signUpState.outerStep === SignUpStepEnum.CONFIRMATION_STEP &&
         <SignUpSuccess/>
       }
      </div>

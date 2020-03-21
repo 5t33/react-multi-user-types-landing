@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
@@ -6,9 +6,10 @@ import {
 } from 'Components/SignUp/SignUpContext';
 import ActionButton from 'Components/Buttons/ActionButton';
 import BasicInfoForm, { BasicInfoData } from 'Components/Forms/BasicInfoForm';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikProps } from 'formik';
 import * as yup from 'yup';
 import { composeFormErrors } from 'Components/Forms/formHelpers';
+import { UserType } from 'Types';
 
 const formSchema = yup.object().shape({
   name: yup.string()
@@ -56,12 +57,42 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
+
+
+type PersonFormProps = {
+  userType: UserType,
+  signUpDispatch: SignUpDispatch
+} & FormikProps<BasicInfoData>;
+
+const PersonForm: React.FC<PersonFormProps> = ((props: PersonFormProps) => {
+
+  const { errors, handleSubmit, handleChange, values, userType, signUpDispatch} = props;
+  const classes = useStyles({});
+
+  useEffect(() => {
+    signUpDispatch({type: SignUpActionTypeEnum.SET_BASIC_INFO_DATA, payload:values})
+  })
+  return (
+    <Form onSubmit={(e:React.FormEvent<HTMLFormElement>)=>{
+      e.preventDefault(); 
+      console.log("submitting");
+      handleSubmit(e)
+    }}>
+    <div className={classes.FormContainer}>
+      <BasicInfoForm values={values} errors={errors} userType={userType} handleChange={handleChange}/>
+      <ActionButton className={classes.Button} type='submit'>
+        {"Create Account"}
+      </ActionButton>    
+    </div>
+  </Form>
+  );
+})
+
 export type PersonSignUpProps = {
   initialValues: BasicInfoData
 }
 
 const PersonSignUp: React.FC<PersonSignUpProps> = (props: PersonSignUpProps) => {
-  const classes = useStyles({});
   const { initialValues } = props;
   const signUpState: SignUpStateType = useSignUpState();
   const signUpDispatch: SignUpDispatch  = useSignUpDispatch();
@@ -77,25 +108,13 @@ const PersonSignUp: React.FC<PersonSignUpProps> = (props: PersonSignUpProps) => 
       validateOnChange={false}
       onSubmit={(values:BasicInfoData, actions) => {
         actions.setSubmitting(false)
+        console.log("Form Submitted!");
         confirmationOnClick()
         return;
       }}
     >
-      {({ touched, errors, isSubmitting, handleSubmit, handleChange, values }) => (
-        <Form onSubmit={(e:React.FormEvent<HTMLFormElement>)=>{
-            console.log(e.target)
-            e.preventDefault(); console.log("submitting"); handleSubmit(e)
-          }}>
-          <div className={classes.FormContainer}>
-            <BasicInfoForm values={values} errors={errors} userType={signUpState.userType} handleChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              handleChange(event)
-              signUpDispatch({type: SignUpActionTypeEnum.SET_BASIC_INFO_DATA, payload:values})
-            }}/>
-            <ActionButton className={classes.Button} type='submit'>
-              {"Create Account"}
-            </ActionButton>    
-          </div>
-        </Form>
+      {formikProps => (
+         <PersonForm {...formikProps} signUpDispatch={signUpDispatch} userType={signUpState.userType}/>
       )}
     </Formik>
   );

@@ -1,7 +1,6 @@
 import React from 'react';
 import immutable from 'immutable';
-
-
+import { enumToValueArray } from 'Util/helpers';
 import { UserType, UserTypes } from '../../Types';
 import { ReducerUnrecognizedActionError, DispatchPreUse, UseSignUpStateError, UseSignUpDispatchError }  from '../../Util/Errors';
 import { BasicInfoData } from 'Components/Forms/BasicInfoForm';
@@ -18,18 +17,41 @@ export enum SignUpActionTypeEnum {
 
 export enum SignUpStepEnum {
   INITIAL_STEP,
-  BASIC_INFO_STEP,
-  ADDRESS_STEP,
+  INNER_STEPS,
   CONFIRMATION_STEP
+}
+
+export enum personSignUpStepEnum {
+  BASIC_INFO_STEP
+}
+
+export enum venueSignUpStepEnum {
+  BASIC_INFO_STEP,
+  ADDRESS_STEP
+}
+const personSignUpStepList = enumToValueArray(personSignUpStepEnum)
+const venueSignUpStepList = enumToValueArray(venueSignUpStepEnum)
+
+const userStepListMap = {
+  [UserTypes.Artist]: personSignUpStepList,
+  [UserTypes.Fan]: personSignUpStepList,
+  [UserTypes.Venue]: venueSignUpStepList
+} 
+
+export const getUserSteps = (userType: UserType) => {
+  console.log(userStepListMap[userType])
+  return userStepListMap[userType];
+
 }
 
 export type SignUpStateType = {
   [key in UserType]?: {
     basicInfoData?: BasicInfoData,
     addressData?: AddressData
+    innerStep: number
   }
 } & {
-  step: SignUpStepEnum,
+  outerStep: SignUpStepEnum,
   userType: UserType
 }
 
@@ -39,8 +61,17 @@ export type SignUpAction = {
 }
 
 const initialSignUpState: SignUpStateType = {
-  step: SignUpStepEnum.INITIAL_STEP,
-  userType: UserTypes.Artist
+  outerStep: SignUpStepEnum.INITIAL_STEP,
+  userType: UserTypes.Artist,
+  [UserTypes.Artist]: {
+    innerStep: 0
+  },
+  [UserTypes.Fan]: {
+    innerStep: 0
+  },
+  [UserTypes.Venue]: {
+    innerStep: 0
+  },
 }
 
 export type SignUpDispatch = (action: SignUpAction) => void
@@ -49,17 +80,31 @@ const SignUpStateContext = React.createContext<SignUpStateType>(initialSignUpSta
 const SignUpDispatchContext = React.createContext<SignUpDispatch>(() => {throw new Error(DispatchPreUse)});
 
 const signUpReducer = (state:SignUpStateType, action: SignUpAction ) => {
+  const userType = state.userType;
+  const step = immutable.getIn(state, ['outerStep'], SignUpStepEnum.INITIAL_STEP)
+  const innerStep = immutable.getIn(state, [`${state.userType}`, 'innerStep'], 0);
+  const innerStepList = userStepListMap[userType];
+  const lastInnerStep = innerStepList.slice(-1)[0];
+  const firstInnerStep = innerStepList[0];
   switch(action.type) {
     case SignUpActionTypeEnum.SET_USER_TYPE:
       return immutable.setIn(state, ['userType'], action.payload as UserType)
     case SignUpActionTypeEnum.INCREMENT_STEP:
-      return immutable.setIn(state, ['step'], state.step + 1)
+      if(step === SignUpStepEnum.INNER_STEPS && innerStep < lastInnerStep) {
+        return immutable.setIn(state, [`${state.userType}`, 'innerStep'], state[`${state.userType}`].innerStep + 1)  
+      } else {
+        return immutable.setIn(state, ['outerStep'], state.outerStep + 1)
+      }
     case SignUpActionTypeEnum.DECREMENT_STEP:
-      return immutable.setIn(state, ['step'], state.step - 1)
+      if((step > SignUpStepEnum.INNER_STEPS) || ((step === SignUpStepEnum.INNER_STEPS) && innerStep ===  firstInnerStep)) {
+        return immutable.setIn(state, ['outerStep'], state.outerStep - 1)
+      } else{
+        return immutable.setIn(state, [`${state.userType}`, 'innerStep'], state[`${state.userType}`].innerStep - 1)  
+      }
     case SignUpActionTypeEnum.SET_STEP:
-      return immutable.setIn(state, ['step'], action.payload)
+      return immutable.setIn(state, ['outerStep'], action.payload)
     case SignUpActionTypeEnum.SET_BASIC_INFO_DATA:
-      return immutable.setIn(state, [`${state.userType}`,'basicInfoData'], action.payload)
+      return immutable.setIn(state, [`${state.userType}`,'basicInfoData'], action.payload);
     case SignUpActionTypeEnum.SET_ADDRESS:
       return immutable.setIn(state, ['data', 'address'] , action.payload)
     default:

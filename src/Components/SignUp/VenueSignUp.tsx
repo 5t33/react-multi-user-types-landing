@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { get } from 'lodash/fp';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikProps} from 'formik';
 import * as yup from 'yup';
+import get from 'lodash/fp/get'
 import ActionButton from 'Components/Buttons/ActionButton';
 import AddressForm, { AddressData } from 'Components/Forms/AddressForm';
 import BasicInfoForm, {BasicInfoData} from 'Components/Forms/BasicInfoForm';
 import { 
   SignUpStateType, useSignUpState,SignUpDispatch, useSignUpDispatch,
-  SignUpStepEnum, SignUpActionTypeEnum
+  venueSignUpStepEnum, SignUpActionTypeEnum
 } from 'Components/SignUp/SignUpContext';
 import { UnknownVenueSignUpStep } from 'Util/Errors';
 import { composeFormErrors } from 'Components/Forms/formHelpers';
+import { UserType } from 'Types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   FormContainer: {
@@ -65,16 +66,39 @@ const addressformSchema = yup.object().shape({
  });
 
 
+type VenueFormProps = {
+  signUpDispatch: SignUpDispatch,
+  userType: UserType
+} & FormikProps<BasicInfoData>
+
+const VenueForm: React.FC<VenueFormProps> = (props:   VenueFormProps) => {
+  const { errors, handleSubmit, handleChange, values, signUpDispatch, userType } = props
+  const classes = useStyles({});
+
+  React.useEffect(() => {
+    signUpDispatch({type: SignUpActionTypeEnum.SET_BASIC_INFO_DATA, payload:values})
+  })
+  return(
+    <Form onSubmit={handleSubmit}>
+      <div className={classes.FormContainer}>
+        <BasicInfoForm values={values} errors={errors} userType={userType} handleChange={handleChange}/>
+        <ActionButton type='submit'>
+          {"Next"}
+        </ActionButton>
+      </div>    
+    </Form>
+  )
+}
+
 type VenueBasicInfoProps = { initialValues: BasicInfoData}
 
-const VenueBasicInfo = (props: VenueBasicInfoProps) => {
+const VenueBasicInfo: React.FC<VenueBasicInfoProps> = (props: VenueBasicInfoProps) => {
   
-  const classes = useStyles({});
   let { initialValues } = props;
   const signUpState: SignUpStateType = useSignUpState();
   const signUpDispatch: SignUpDispatch  = useSignUpDispatch();
   const nextOnClick = () => signUpDispatch({type: SignUpActionTypeEnum.INCREMENT_STEP})
-
+ 
   return (
     <Formik
       initialValues = {initialValues}
@@ -90,72 +114,76 @@ const VenueBasicInfo = (props: VenueBasicInfoProps) => {
         return;
       }}
     >
-      {({ touched, errors, isSubmitting, handleSubmit, handleChange, values }) => (
-        <Form onSubmit={handleSubmit}>
-            <div className={classes.FormContainer}>
-              <BasicInfoForm values={values} errors={errors} userType={signUpState.userType} handleChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                handleChange(event)
-                signUpDispatch({type: SignUpActionTypeEnum.SET_BASIC_INFO_DATA, payload:values})
-              }}/>
-              <ActionButton type='submit'>
-                {"Next"}
-              </ActionButton>
-            </div>    
-        </Form>
+      {(props) => (
+        <VenueForm {...props} userType={signUpState.userType} signUpDispatch={signUpDispatch}/>
       )}
     </Formik>
 
 )};
 
 
+type AddressFormContainerProps = {
+  signUpDispatch: SignUpDispatch,
+} & FormikProps<AddressData>
+
+const AddressFormContainer: React.FC<AddressFormContainerProps> = ((props: AddressFormContainerProps) => {
+
+  const { errors, handleSubmit, handleChange, values, signUpDispatch } = props;
+  const classes = useStyles({});
+  const nextOnClick = () => signUpDispatch({type: SignUpActionTypeEnum.INCREMENT_STEP})
+
+  useEffect(()=> {
+    signUpDispatch({type: SignUpActionTypeEnum.SET_ADDRESS, payload:values})
+  });
+  
+  return (
+    <Form onSubmit={async (e:React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault(); 
+      await handleSubmit(e);
+      if(!Object.keys(errors).length) {
+        nextOnClick()
+        console.log("Form Submitted!")
+      }
+    }}>
+      <div className={classes.FormContainer}>
+        <AddressForm values={values} errors={errors} handleChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          handleChange(event)
+          signUpDispatch({type: SignUpActionTypeEnum.SET_ADDRESS, payload:values})
+          console.log(event.target.value)
+        }}/>
+        <ActionButton type='submit'>
+          {"Create Account"}
+        </ActionButton>
+      </div>
+    </Form>
+  );
+})
+
+
 type AddressSignUpProps = { 
   initialValues: AddressData
 }
 
-const AddressSignUp = ((props: AddressSignUpProps) => {
-  // bs until formik handleSubmit promise error is fixed
-  // basicInfoSubmitted = false;
-  // uglyGlobalStep = 1;
-  const classes = useStyles({});
+const AddressSignUp: React.FC<AddressSignUpProps> = ((props: AddressSignUpProps) => {
+
   const signUpDispatch: SignUpDispatch  = useSignUpDispatch();
-  const nextOnClick = () => signUpDispatch({type: SignUpActionTypeEnum.INCREMENT_STEP})
 
   return (
       <Formik
       initialValues = {props.initialValues}
       validate = {
         (values: AddressData) => addressformSchema.validate(values, {abortEarly: false})
-          .then(console.log)
+          .then()
           .catch(composeFormErrors)
       }
       validateOnChange={false}
       onSubmit={(values:AddressData, actions) => {
         actions.setSubmitting(false)
-        nextOnClick()
         return;
       }}
     >
-     {({ touched, errors, isSubmitting, handleSubmit, handleChange, values }) => (
-        <Form onSubmit={async (e:React.FormEvent<HTMLFormElement>) => {
-          console.log(e.target)
-          e.preventDefault(); 
-          
-          await handleSubmit(e);
-          console.log("errors on subit", errors)
-          if(!Object.keys(errors).length) {
-            // nextOnClick();
-          }
-        }}>
-          <div className={classes.FormContainer}>
-            <AddressForm values={values} errors={errors} handleChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              handleChange(event)
-              signUpDispatch({type: SignUpActionTypeEnum.SET_ADDRESS, payload:values})
-            }}/>
-            <ActionButton type='submit'>
-              {"Create Account"}
-            </ActionButton>
-          </div>
-        </Form>
+     {(props) => (
+        <AddressFormContainer {...props} signUpDispatch={signUpDispatch} />
      )}
     </Formik>
   )
@@ -164,21 +192,22 @@ const AddressSignUp = ((props: AddressSignUpProps) => {
 
 export type VenueSignUpProps = {};
 
-const VenueSignUp: React.FC<VenueSignUpProps> = (props: VenueSignUpProps) => {
+const VenueSignUp: React.FC<VenueSignUpProps> = () => {
   
   const signUpState: SignUpStateType = useSignUpState();
+  const innerStep = get([`${signUpState.userType}`, 'innerStep'], signUpState);
 
-  switch(signUpState.step) {
-      case SignUpStepEnum.BASIC_INFO_STEP: 
+  switch(innerStep) {
+      case venueSignUpStepEnum.BASIC_INFO_STEP: 
         return(
          <VenueBasicInfo initialValues={get([`${signUpState.userType}`, 'basicInfoData'], signUpState) || {}}/>
         )
-      case SignUpStepEnum.ADDRESS_STEP: 
+      case venueSignUpStepEnum.ADDRESS_STEP: 
         return(
           <AddressSignUp initialValues={get([`${signUpState.userType}`, 'addressData'], signUpState) || {}}/>
         )
       default:
-        throw new Error(UnknownVenueSignUpStep(signUpState.step));
+        throw new Error(UnknownVenueSignUpStep(innerStep));
     }
 }
 
