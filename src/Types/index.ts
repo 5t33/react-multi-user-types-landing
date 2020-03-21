@@ -22,21 +22,3 @@ export type AddressData = {
   address1: string,
   address2: string,
 }
-
-export type ContactData = {
-  email: string,
-  phoneNumber: string,
-  name: string
-}
-
-export interface IUserAccountData {
-  contact: ContactData,
-  userType: UserType,
-  password?: string,
-  address?: AddressData,
-  zipCode?: number
-}
-
-export interface IVenueAccountData extends IUserAccountData {
-  venueName: string
-}
