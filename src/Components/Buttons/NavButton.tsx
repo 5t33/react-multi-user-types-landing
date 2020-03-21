@@ -50,9 +50,10 @@ const NavButton: React.FC<NavButtonProps> = (props: NavButtonProps) => {
         onClick={() => onClick()}
         disableFocusRipple={true}
         disableRipple={true}
-      />
+      >
       {direction === "left" && <img src={LeftArrow} />}
       {direction === "right" && <img src={RightArrow} />}
+      </Button>
     </div>
   );
 };

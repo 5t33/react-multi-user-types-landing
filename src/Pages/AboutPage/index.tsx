@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     top: "0",
     backgroundPosition: "center",
     position: "absolute",
-    // background: 'linear-gradient(to right,rgba(255,0,0,0) 0%, #e1e1e1 80%)',/*'linear-gradient(to left, #000, #000 10%, #e1e1e1 75%, #e1e1e1 75%)'*/
     width: "100vw",
     height: "100vh",
     zIndex: 100,
@@ -50,15 +49,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     flexFlow: "column",
     textAlign: "left",
-    // marginTop: '2rem',
     marginRight: "2rem",
     marginLeft: "2rem",
     "& p": {
       position: "relative",
       color: "gray"
-    },
-    "& > *": {
-      // textShadow: '1px 1px 3px #8D8D8D'
     },
     [theme.breakpoints.down("xs")]: {
       marginTop: "1rem"
@@ -84,14 +79,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up("xs")]: {},
     [theme.breakpoints.up("sm")]: {
       fontSize: "2rem",
-
       marginBottom: "2rem"
     },
     [theme.breakpoints.up("md")]: {},
     [theme.breakpoints.up("lg")]: {}
   },
   Copy: {
-    // fontSize: '1.1rem',
     fontWeight: "bold",
     marginBottom: "1rem",
     paddingLeft: "2rem",
@@ -99,12 +92,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down("sm")]: {
       fontSize: ".625rem"
     },
-    // [theme.breakpoints.up('xs')]: {
-    //   fontSize: '1rem',
-
-    // },
     [theme.breakpoints.up("sm")]: {
-      // fontSize: '1.25rem',
       fontSize: "1rem"
     },
     [theme.breakpoints.up("md")]: {
@@ -117,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 // currently exporting an empty proptype for consistency
-export type AboutPageProps = {} & { children?: React.ReactNode };
+export type AboutPageProps = {}
 
 const AboutPage: React.FC = (props, ref: React.RefObject<HTMLDivElement>) => {
   const classes = useStyles();

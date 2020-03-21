@@ -13,7 +13,7 @@ import ActionButton from "Components/Buttons/ActionButton";
 import BasicInfoForm, { BasicInfoData } from "Components/Forms/BasicInfoForm";
 import { Formik, Form, FormikProps } from "formik";
 import * as yup from "yup";
-import { composeFormErrors } from "Components/Forms/formHelpers";
+import composeFormErrors from "Components/Forms/composeFormErrors";
 import { UserType } from "Types";
 
 const formSchema = yup.object().shape({
@@ -101,6 +101,12 @@ const PersonForm: React.FC<PersonFormProps> = (props: PersonFormProps) => {
     >
       <div className={classes.FormContainer}>
         <BasicInfoForm
+          showFields={{
+            name: true,
+            email: true,
+            zipcode: true,
+            password: true
+          }}
           values={values}
           errors={errors}
           userType={userType}

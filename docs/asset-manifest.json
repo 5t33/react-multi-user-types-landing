@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/react-multi-user-types-landing/static/css/main.dfca195d.chunk.css",
-    "main.js": "/react-multi-user-types-landing/static/js/main.31f4dbba.chunk.js",
-    "main.js.map": "/react-multi-user-types-landing/static/js/main.31f4dbba.chunk.js.map",
+    "main.js": "/react-multi-user-types-landing/static/js/main.9ae449ae.chunk.js",
+    "main.js.map": "/react-multi-user-types-landing/static/js/main.9ae449ae.chunk.js.map",
     "runtime-main.js": "/react-multi-user-types-landing/static/js/runtime-main.678f52ce.js",
     "runtime-main.js.map": "/react-multi-user-types-landing/static/js/runtime-main.678f52ce.js.map",
-    "static/js/2.4f738262.chunk.js": "/react-multi-user-types-landing/static/js/2.4f738262.chunk.js",
-    "static/js/2.4f738262.chunk.js.map": "/react-multi-user-types-landing/static/js/2.4f738262.chunk.js.map",
+    "static/js/2.58c3224b.chunk.js": "/react-multi-user-types-landing/static/js/2.58c3224b.chunk.js",
+    "static/js/2.58c3224b.chunk.js.map": "/react-multi-user-types-landing/static/js/2.58c3224b.chunk.js.map",
     "index.html": "/react-multi-user-types-landing/index.html",
-    "precache-manifest.4add97518dfd2fddf7c2a24696e4437e.js": "/react-multi-user-types-landing/precache-manifest.4add97518dfd2fddf7c2a24696e4437e.js",
+    "precache-manifest.68791a1accd54a355b130821c8075849.js": "/react-multi-user-types-landing/precache-manifest.68791a1accd54a355b130821c8075849.js",
     "service-worker.js": "/react-multi-user-types-landing/service-worker.js",
     "static/css/main.dfca195d.chunk.css.map": "/react-multi-user-types-landing/static/css/main.dfca195d.chunk.css.map",
-    "static/js/2.4f738262.chunk.js.LICENSE.txt": "/react-multi-user-types-landing/static/js/2.4f738262.chunk.js.LICENSE.txt",
+    "static/js/2.58c3224b.chunk.js.LICENSE.txt": "/react-multi-user-types-landing/static/js/2.58c3224b.chunk.js.LICENSE.txt",
     "static/media/alexander-popov-hTv8aaPziOQ-unsplash.jpg": "/react-multi-user-types-landing/static/media/alexander-popov-hTv8aaPziOQ-unsplash.30356eb3.jpg",
     "static/media/austin-neill-1t0yY9lSpyE-unsplash.jpg": "/react-multi-user-types-landing/static/media/austin-neill-1t0yY9lSpyE-unsplash.9f7ca609.jpg",
     "static/media/down-arrow.svg": "/react-multi-user-types-landing/static/media/down-arrow.5e4afb31.svg",
@@ -20,8 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.678f52ce.js",
-    "static/js/2.4f738262.chunk.js",
+    "static/js/2.58c3224b.chunk.js",
     "static/css/main.dfca195d.chunk.css",
-    "static/js/main.31f4dbba.chunk.js"
+    "static/js/main.9ae449ae.chunk.js"
   ]
 }

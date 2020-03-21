@@ -16,7 +16,7 @@ import {
   SignUpActionTypeEnum
 } from "Components/SignUp/SignUpContext";
 import { UnknownVenueSignUpStep } from "Util/Errors";
-import { composeFormErrors } from "Components/Forms/formHelpers";
+import  composeFormErrors from "Components/Forms/composeFormErrors";
 import { UserType } from "Types";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const minPasswordLength = 8;
 const venueformSchema = yup.object().shape({
-  venueName: yup.string().required("Venue name is a required field"),
+  name: yup.string().required("Venue name is a required field"),
   email: yup
     .string()
     .required("Email is a required field")
@@ -104,10 +104,26 @@ const VenueForm: React.FC<VenueFormProps> = (props: VenueFormProps) => {
     <Form onSubmit={handleSubmit}>
       <div className={classes.FormContainer}>
         <BasicInfoForm
+          showFields={{
+            email:true,
+            phoneNumber:true,
+            name:true,
+            password:true
+          }}
+          fieldProps={{
+            name:{
+              upperlabel:"Venue Name",
+              placeholder:"Your Business",
+              variant:"outlined"
+            }
+          }}
           values={values}
           errors={errors}
           userType={userType}
-          handleChange={handleChange}
+          handleChange={async (e:any) => {
+            await handleChange(e)
+            console.log(props.errors)
+          }}
         />
         <ActionButton type="submit">{"Next"}</ActionButton>
       </div>
@@ -132,7 +148,9 @@ const VenueBasicInfo: React.FC<VenueBasicInfoProps> = (
       validate={(values: BasicInfoData) =>
         venueformSchema
           .validate(values, { abortEarly: false })
-          .then()
+          // oddly this needs some kind of function in the .then
+          // to work
+          .then(()=>{})
           .catch(composeFormErrors)
       }
       validateOnChange={false}

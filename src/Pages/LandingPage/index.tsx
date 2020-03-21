@@ -3,8 +3,6 @@ import { Typography, Theme } from "@material-ui/core";
 import ActionButton from "Components/Buttons/ActionButton";
 import { makeStyles } from "@material-ui/core/styles";
 import CoverImage from "assets/images/alexander-popov-hTv8aaPziOQ-unsplash.jpg";
-// import DownArrow from 'assets/icons/down-arrow.svg'
-// import ScrollToRefButton from 'Components/Buttons/ScrollToRefButton';
 import TextChevronDownButton from "Components/Buttons/TextChevronDownButton";
 import { scrollToDiv } from "Util/helpers";
 

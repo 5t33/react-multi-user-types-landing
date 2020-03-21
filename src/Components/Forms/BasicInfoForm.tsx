@@ -2,19 +2,21 @@ import React from "react";
 import { Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserTypes, UserType } from "Types";
-import TextField from "Components/Inputs/TextFieldUpperLabel";
+import TextField, { FieldWithLabelProps } from "Components/Inputs/TextFieldUpperLabel";
 import { UnknownUserTypeError } from "Util/Errors";
 import { FormikErrors } from "formik";
 import PhoneNumberTextField from "Components/Inputs/PhoneNumberTextField";
 
 export type BasicInfoData = {
+  userName?: string;
   email?: string;
+  repeatEmail?: string;
   phoneNumber?: string;
   name?: string;
-  venueName?: string;
+  firstName: string;
+  lastName: string;
   password?: string;
   zipcode?: string;
-  submitWorked?: Promise<boolean>;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -37,11 +39,28 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
+type fields =
+  "userName" |
+  "email" |
+  "repeatEmail" |
+  "phoneNumber" |
+  "name" |
+  "firstName" |
+  "lastName" |
+  "zipcode" |
+  "password";
+
 export type BasicInfoFormProps = {
   userType: UserType;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   values: BasicInfoData;
   errors: FormikErrors<BasicInfoData>;
+  showFields: {
+    [key in fields]?: boolean
+  }, 
+  fieldProps?: {
+    [key in fields]?: FieldWithLabelProps
+  }
 };
 
 const BasicInfoForm: React.FC<BasicInfoFormProps> = (
@@ -52,6 +71,9 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = (
   const isPerson = userType === UserTypes.Artist || userType === UserTypes.Fan;
   const isVenue = userType === UserTypes.Venue;
 
+  const getOverrideProps = ( key: fields ) => 
+    (props.fieldProps && props.fieldProps[key]) ? props.fieldProps[key] : {}
+
   const throwUnknownUserTypeError = (unknownUserType: string) => {
     throw new Error(UnknownUserTypeError(unknownUserType));
   };
@@ -60,7 +82,24 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = (
     <div className={classes.root}>
       {!isPerson && !isVenue && throwUnknownUserTypeError(userType)}
 
-      {isPerson && (
+      {props.showFields.userName && (
+        <TextField
+          id="userName"
+          name="userName"
+          upperlabel="User Name"
+          variant="outlined"
+          type="text"
+          onChange={handleChange}
+          placeholder="johndoe365"
+          className={`${classes.LocalTextField}`}
+          value={values.userName || ""}
+          error={!!errors.userName}
+          helperText={errors.userName}
+          {...getOverrideProps("userName")}
+        />
+      )}
+
+      {props.showFields.name && (
         <TextField
           id="name"
           name="name"
@@ -73,41 +112,79 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = (
           value={values.name || ""}
           error={!!errors.name}
           helperText={errors.name}
+          {...getOverrideProps("name")}
         />
       )}
 
-      {isVenue && (
+      {props.showFields.firstName && (
         <TextField
-          id="venueName"
-          name="venueName"
-          upperlabel="Venue Name"
+          id="firstName"
+          name="firstName"
+          upperlabel="First Name"
           variant="outlined"
           type="text"
           onChange={handleChange}
-          placeholder="Your Business"
+          placeholder="John"
           className={`${classes.LocalTextField}`}
-          value={values.venueName || ""}
-          error={!!errors.venueName}
-          helperText={errors.venueName}
+          value={values.firstName || ""}
+          error={!!errors.firstName}
+          helperText={errors.firstName}
+          {...getOverrideProps("firstName")}
         />
       )}
 
-      <TextField
-        onChange={handleChange}
-        id="email"
-        upperlabel="Email"
-        name="email"
-        variant="outlined"
-        type="email"
-        placeholder="john@doe.com"
-        className={`${classes.LocalTextField}`}
-        value={values.email || ""}
-        error={!!errors.email}
-        helperText={errors.email}
-      />
-      {/* <TextField id="repeat-email-input" upperlabel="Repeat Email" variant="outlined" className={`${classes.LocalTextField}`}/> */}
+      {props.showFields.lastName && (
+        <TextField
+          id="lastName"
+          name="lastName"
+          upperlabel="Last Name"
+          variant="outlined"
+          type="text"
+          onChange={handleChange}
+          placeholder="Doe"
+          className={`${classes.LocalTextField}`}
+          value={values.lastName || ""}
+          error={!!errors.lastName}
+          helperText={errors.lastName}
+          {...getOverrideProps("lastName")}
+        />
+      )}
 
-      {isVenue && (
+
+      {props.showFields.email && (
+        <TextField
+          onChange={handleChange}
+          id="email"
+          upperlabel="Email"
+          name="email"
+          variant="outlined"
+          type="email"
+          placeholder="john@doe.com"
+          className={`${classes.LocalTextField}`}
+          value={values.email || ""}
+          error={!!errors.email}
+          helperText={errors.email}
+          {...getOverrideProps("email")}
+        />
+      )}
+
+      {props.showFields.repeatEmail && (
+        <TextField 
+          id="repeat-email" 
+          upperlabel="Repeat Email" 
+          name="repeat-email"
+          variant="outlined" 
+          type="email"
+          placeholder="john@doe.com"
+          className={`${classes.LocalTextField}`}
+          value={values.repeatEmail || ""}
+          error={!!errors.repeatEmail}
+          helperText={errors.repeatEmail}
+          {...getOverrideProps("repeatEmail")}
+        />
+      )}
+
+      {props.showFields.phoneNumber && (
         <PhoneNumberTextField
           onChange={handleChange}
           id="phoneNumber"
@@ -120,10 +197,11 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = (
           value={values.phoneNumber || ""}
           error={!!errors.phoneNumber}
           helperText={errors.phoneNumber}
+          {...getOverrideProps("phoneNumber")}
         />
       )}
 
-      {isPerson && (
+      {props.showFields.zipcode && (
         <TextField
           onChange={handleChange}
           id="zipcode"
@@ -136,22 +214,26 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = (
           value={values.zipcode || ""}
           error={!!errors.zipcode}
           helperText={errors.zipcode}
+          {...getOverrideProps("zipcode")}
         />
       )}
 
-      <TextField
-        onChange={handleChange}
-        id="password"
-        upperlabel="Password"
-        name="password"
-        variant="outlined"
-        type="password"
-        placeholder="●●●●●●●"
-        className={`${classes.LocalTextField}`}
-        value={values.password || ""}
-        error={!!errors.password}
-        helperText={errors.password}
-      />
+      {props.showFields.password && (
+        <TextField
+          onChange={handleChange}
+          id="password"
+          upperlabel="Password"
+          name="password"
+          variant="outlined"
+          type="password"
+          placeholder="●●●●●●●"
+          className={`${classes.LocalTextField}`}
+          value={values.password || ""}
+          error={!!errors.password}
+          helperText={errors.password}
+          {...getOverrideProps("zipcode")}
+        />
+      )}
     </div>
   );
 };
