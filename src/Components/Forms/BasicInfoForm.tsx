@@ -5,9 +5,7 @@ import { UserTypes, UserType} from 'Types';
 import TextField from 'Components/Inputs/TextFieldUpperLabel';
 import { UnknownUserTypeError } from 'Util/Errors';
 import { FormikErrors } from 'formik';
-
-const { AsYouType} = require('libphonenumber-js/core');
-const metadata = require('libphonenumber-js/metadata.min.json');
+import PhoneNumberTextField from 'Components/Inputs/PhoneNumberTextField';
 
 export type BasicInfoData = {
   email?: string,
@@ -54,23 +52,6 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = (props:  BasicInfoFormProps)
   const isVenue = userType === UserTypes.Venue;
 
   const throwUnknownUserTypeError = (unknownUserType: string) => {throw new Error(UnknownUserTypeError(unknownUserType))}
-  const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let val = event.target.value;
-    if (
-      (val[0] !== "1" && val.length > 14) ||
-      (val[0] === "1" && val.length > 16)
-    ) {
-      return;
-    // This solves the jankyness with the parens not deleting 
-    } else if (val.length === 6 || val.length === 4) {
-      handleChange(event);
-    } else if (val.length === 3) {
-      handleChange(event);
-    } else {
-      event.target.value = new AsYouType("US", metadata).input(val || '')
-      handleChange(event);
-    }
-  };
 
   return (
     <div className={classes.root}>
@@ -128,8 +109,8 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = (props:  BasicInfoFormProps)
       {
         isVenue && 
 
-        <TextField
-        onChange={handlePhoneNumberChange}
+        <PhoneNumberTextField
+        onChange={handleChange}
         id="phoneNumber" 
         name="phoneNumber" 
         type="string"
